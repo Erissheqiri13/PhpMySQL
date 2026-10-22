@@ -4,10 +4,10 @@
   include_once('config.php');
 
   if(empty($_SESSION['username'])){
-    header('Location:login.php')
+    header('Location:login.php');
   }
 
-  $id = $_GET['id']
+  $id = $_GET['id'];
   $sql = "SELECT * from users WHERE id=:id";
   $selectUser = $conn -> prepare($sql);
   $selectUser->bindParam(':id',$id);
@@ -15,6 +15,8 @@
 
   $user_data = $selectUser->fetch();
 ?>
+
+<?php include("header.php");?>
 
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Welcome, <i><?php echo $_SESSION['username'];?></i></a>
@@ -37,7 +39,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="profile.php?id=<?= $user_data[id];?>">
+                        <a class="nav-link active" href="profile.php?id=<?= $user_data["id"];?>">
                             <span data-feather="file"></span>
                             Edit Profile
                         </a>
@@ -82,3 +84,4 @@
         </div>
     </div>
 </div>
+<?php include("footer.php");?>

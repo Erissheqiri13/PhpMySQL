@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $user="root";
 $pass="";
 $server="localhost";
@@ -13,8 +15,4 @@ try {
 } catch (PDOException $e) {
 	echo "error: " . $e->getMessage();
 }
-
-
-
-
  ?>
