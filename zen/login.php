@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'db.php';
 
 $error = '';
@@ -10,18 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($email) || empty($password)) {
         $error = "Please fill in all fields.";
     } else {
-        // Find user by email
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
-        // Check if user exists and password matches the hash
         if ($user && password_verify($password, $user['password'])) {
-            // Start session and store user details
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id']  = $user['id'];
             $_SESSION['username'] = $user['username'];
 
-            // Redirect to marketplace homepage
             header("Location: index.php");
             exit;
         } else {
